@@ -35,6 +35,7 @@ import verifyToken from '../middleware/auth';
 import * as HealthCheck from '../middleware/healthCheck';
 import * as prometheusRegister from '../middleware/instrumentation';
 import statusConnection from '../middleware/statusConnection';
+import * as InsightsController from '../controller/insightsController';
 import swaggerDocument from '../swagger.json';
 
 const upload = multer(uploadConfig as any) as any;
@@ -435,6 +436,12 @@ routes.get(
   verifyToken,
   statusConnection,
   DeviceController.getMessageById
+);
+routes.get(
+  '/api/:session/message-ack/:messageId',
+  verifyToken,
+  statusConnection,
+  InsightsController.getMessageAck
 );
 routes.get(
   '/api/:session/chat-is-online/:phone',
