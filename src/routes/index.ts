@@ -36,6 +36,7 @@ import * as HealthCheck from '../middleware/healthCheck';
 import * as prometheusRegister from '../middleware/instrumentation';
 import statusConnection from '../middleware/statusConnection';
 import * as InsightsController from '../controller/insightsController';
+import * as EventController from '../controller/eventController';
 import swaggerDocument from '../swagger.json';
 
 const upload = multer(uploadConfig as any) as any;
@@ -226,6 +227,12 @@ routes.post(
   verifyToken,
   statusConnection,
   MessageController.sendPollMessage
+);
+routes.post(
+  '/api/:session/send-event-message',
+  verifyToken,
+  statusConnection,
+  EventController.sendEventMessage
 );
 routes.post(
   '/api/:session/send-pix-key',
